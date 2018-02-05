@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="triviaTrends">
 
 <head>
   <meta charset="utf-8">
@@ -9,33 +9,37 @@
   <link rel="shortcut icon" href="/styles/assets/crownFavicon.png">
 </head>
 
-<body>
+<body ng-controller="triviaCtrl">
   <header>
     <div></div>
     <h1>Trivia Trends</h1>
-    <button><span>+</span> Add Question</button>
+    <button>
+      <span>+</span> Add Question</button>
   </header>
   <article>
     <nav>
-      <a>All Questions</a>
-      <a>Easy</a>
-      <a>Medium</a>
-      <a>Hard</a>
+      <a ng-click="getDifficulty()">All Questions</a>
+      <a ng-click="getDifficulty(1)">Easy</a>
+      <a ng-click="getDifficulty(2)">Medium</a>
+      <a ng-click=" getDifficulty(3)">Hard</a>
       <a>Search by Animal</a>
     </nav>
     <div class="search">
-      <input type="text" placeholder="Animal to search by">
+      <input type="text" placeholder="Animal to search by" ng-model="animalSearch">
     </div>
-
-    <!-- Questions go here -->
+    <div>
+      <trivia-directive animal-search="animalSearch" ng-repeat="question in triviaQuestions | filter: animalSearch" question="question"></trivia-directive>
+    </div>
 
   </article>
 
   <div class="modal">
     <form>
       <h4 class="close">X</h4>
-      <span>Question</span><input type="text" ng-model="<!-- Question -->">
-      <span>Animal it's about</span><input type="text" ng-model="<!-- Animal -->">
+      <span>Question</span>
+      <input type="text" ng-model="<!-- Question -->">
+      <span>Animal it's about</span>
+      <input type="text" ng-model="<!-- Animal -->">
       <span>Difficulty</span>
       <div class="range">
         <input type="range" min="1" max="3" ng-model="<!-- Difficulty -->">
@@ -59,7 +63,6 @@
         <input type="radio" ng-model="" value="4">
         <input type="text" ng-model="">
       </div>
-
       <!--Add question buttons-->
       <div class="buttons">
         <button class="green">Save Question</button>
@@ -81,7 +84,10 @@
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js" charset="utf-8"></script>
-  <script src="./app.js" charset="utf-8"></script>
+  <script src="app.js" charset="utf-8"></script>
+  <script src="trivia/triviaCtrl.js"></script>
+  <script src="trivia/triviaService.js"></script>
+  <script src="trivia/triviaDirective.js"></script>
 </body>
 
 </html>

@@ -1,17 +1,23 @@
 <div class="question-wrapper">
 
-<h3><!-- Question --></h3>
-<div ><!-- Difficulty --></div>
-<div class="gear" >
-  <img src="/styles/assets/gear.svg" alt="">
-</div>
-<ul>
-  <li > <!-- Repeated for each option -->
-    <input type="radio">
-      <label><!-- Option text --></label>
-  </li>
-</ul>
+  <h3>
+    {{question.question}}
+    <!-- Question -->
 
+  </h3>
+  <div ng-class="{green: question.difficulty === 1, yellow: question.difficulty === 2, red: question.difficulty === 3}">
+    {{ question.difficulty === 3 ? "Hard" : question.difficulty === 1 ? "Easy" : question.difficulty === 2 ? "Medium" : null}}
+    <!-- Difficulty -->
+  </div>
+  <div class="gear">
+    <img src="/styles/assets/gear.svg" alt="">
+  </div>
+  <ul>
+    <li ng-repeat="option in question.options" ng-click="selectAnswer($index + 1)">
+      {{option}}
+    </li>
+  </ul>
+  {{ correct }} {{ selectedAnswer }}
 </div>
 
 <!-- Modal -->
